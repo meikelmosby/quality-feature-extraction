@@ -177,7 +177,7 @@ def mser_feature(img):
         regions = mser.detect(img, None)
     else:
         mser = cv2.MSER_create()
-        regions = mser.detectRegions(img, None)
+        regions = mser.detectRegions(img)
     return len(regions)
 
 
@@ -218,9 +218,8 @@ def thirds_map_feature(img):
     wt1 = w/3.
     wt2 = 2*w/3.
 
-    x = [0, wt1 - wtwidth/2, wt1 + wtwidth/2, wt2 - wtwidth/2, wt2 + wtwidth/2, w]
-    y = [0, ht1 - htwidth/2, ht1 + htwidth/2, ht2 - htwidth/2, ht2 + htwidth/2, h]
-
+    x = [0, int(round(wt1 - wtwidth/2)), int(round(wt1 + wtwidth/2)), int(round(wt2 - wtwidth/2)), int(round(wt2 + wtwidth/2)), int(round(w))]
+    y = [0, int(round(ht1 - htwidth/2)), int(round(ht1 + htwidth/2)), int(round(ht2 - htwidth/2)), int(round(ht2 + htwidth/2)), int(round(h))]
     TM = np.zeros((5,5))
     S = saliency_feature(img)
     for j in range(0,5):
@@ -289,12 +288,12 @@ def laplacian_smoothness_feature(img):
 
 def get_grid(img):
     h, w = img.shape[0], img.shape[1]
-    ht1 = h/4.
-    ht2 = 2*h/4.
-    ht3 = 3*h/4.
-    wt1 = w/4.
-    wt2 = 2*w/4.
-    wt3 = 3*w/4.
+    ht1 = int(round(h/4.))
+    ht2 =  int(round(2*h/4.))
+    ht3 = int(round( 3*h/4.))
+    wt1 = int(round( w/4.))
+    wt2 =  int(round(2*w/4.))
+    wt3 =  int(round(3*w/4.))
 
     x = [0, wt1, wt2, wt3, w]
     y = [0, ht1, ht2, ht3, h]
